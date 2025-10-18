@@ -39,10 +39,17 @@ const fornecedorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    endereco: {
+    logradouro: {
+        type: String,
+        required: true
+    },
+    numero: {
         type: String,
         required: true
     }
+}, {
+  timestamps: true, 
 });
+
 
 module.exports = mongoose.model('Fornecedor', fornecedorSchema);
