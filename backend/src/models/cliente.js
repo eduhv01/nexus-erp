@@ -10,20 +10,37 @@ const clienteSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    cpf: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     contato: {
         type: String,
         required: true,
     },
-    endereco: {
+    logradouro: {
         type: String,
         required: true,
+    },
+    numero: {
+        type: String,
+        required: true,    
+    },
+    uf: {
+        type: String,
+        required: true
+    },
+    cidade: {
+        type: String,
+        required: true
     },
     email: {
         type: String,
         required: true,
         unique: true,
     },
-    datNascimento: {
+    dataNascimento: {
         type: Date,
         required: true,
     },
@@ -31,6 +48,6 @@ const clienteSchema = new mongoose.Schema({
   timestamps: true, 
 });
 
-const Cliente = mongoose.model('Cliente', clienteSchema);
+const cliente = mongoose.model('Cliente', clienteSchema);
 
-module.exports = Cliente;
+module.exports = cliente;

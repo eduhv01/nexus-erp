@@ -51,5 +51,6 @@ const fornecedorSchema = new mongoose.Schema({
   timestamps: true, 
 });
 
+const fornecedor = mongoose.model('Fornecedor', fornecedorSchema);
 
-module.exports = mongoose.model('Fornecedor', fornecedorSchema);
+module.exports = fornecedor;

@@ -9,7 +9,17 @@ const funcionarioSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true,
-    }, 
+    },
+    cpf: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     contato: {
         type: String,
         required: true,
@@ -26,6 +36,6 @@ const funcionarioSchema = new mongoose.Schema({
   timestamps: true, 
 });
 
-const Funcionario = mongoose.model('Funcionario', funcionarioSchema);
+const funcionario = mongoose.model('Funcionario', funcionarioSchema);
 
-module.exports = Funcionario;
+module.exports = funcionario;
