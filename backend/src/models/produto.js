@@ -1,6 +1,6 @@
-const moongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const produtoSchema = new moongose.Schema({
+const produtoSchema = new mongoose.Schema({
     nome: {
         type: String,
         required: true,
@@ -14,7 +14,7 @@ const produtoSchema = new moongose.Schema({
         type: Number,
         required: true,
     },
-    quantidade: {
+    estoque: {
         type: Number,
         required: true,
     },
