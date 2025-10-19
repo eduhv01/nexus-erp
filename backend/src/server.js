@@ -7,10 +7,6 @@ dotenv.config();
 connectDB();
 
 const authRoutes = require('./routes/authRoutes.js');
-const produtoRoutes = require('./routes/produtoRoutes.js'); 
-const clienteRoutes = require('./routes/clienteRoutes.js');
-const funcionarioRoutes = require('./routes/funcionarioRoutes.js');
-const fornecedorRoutes = require('./routes/fornecedorRoutes.js');
 const app = express();
 
 app.use(cors()); 
@@ -21,10 +17,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
-app.use('/api/produtos', produtoRoutes); 
-app.use('/api/clientes', clienteRoutes);
-app.use('/api/funcionarios', funcionarioRoutes);
-app.use('/api/fornecedores', fornecedorRoutes);
 
 const PORT = process.env.PORT || 5000;
 
