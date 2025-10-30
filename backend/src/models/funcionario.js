@@ -28,10 +28,6 @@ const funcionarioSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    dataNascimento: {
-        type: Date,
-        required: true,
-    },
 }, {
   timestamps: true, 
 });

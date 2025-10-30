@@ -10,39 +10,18 @@ const clienteSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    cpf: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     contato: {
         type: String,
-        required: true,
-    },
-    logradouro: {
-        type: String,
-        required: true,
-    },
-    numero: {
-        type: String,
-        required: true,    
-    },
-    uf: {
-        type: String,
-        required: true
+        required: true,  
     },
     cidade: {
         type: String,
-        required: true
+        required: false
     },
     email: {
         type: String,
         required: true,
         unique: true,
-    },
-    dataNascimento: {
-        type: Date,
-        required: true,
     },
 }, {
   timestamps: true, 

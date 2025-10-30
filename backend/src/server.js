@@ -8,6 +8,7 @@ connectDB();
 
 const authRoutes = require('./routes/authRoutes.js');
 const produtoRoutes = require('./routes/produtoRoutes.js'); 
+const clienteRoutes = require('./routes/clienteRoutes.js');
 const app = express();
 
 app.use(cors()); 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/produtos', produtoRoutes); 
+app.use('/api/clientes', clienteRoutes);
 
 const PORT = process.env.PORT || 5000;
 
