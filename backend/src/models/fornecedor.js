@@ -19,27 +19,11 @@ const fornecedorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    nomeFantasia: {
-        type: String,
-        required: true,
-    },
-    inscricaoEstadual: {
-        type: String,
-        required: true,
-    },
     contato: {
         type: String,
         required: true
     },
-    uf: {
-        type: String,
-        required: true
-    },
     cidade: {
-        type: String,
-        required: true
-    },
-    logradouro: {
         type: String,
         required: true
     },

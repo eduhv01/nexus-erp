@@ -10,14 +10,9 @@ const funcionarioSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    cpf: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     email: {
         type: String,
-        required: true,
+        required: false,
         unique: true,
     },
     contato: {
@@ -26,7 +21,7 @@ const funcionarioSchema = new mongoose.Schema({
     },
     dataAdmissao: {
         type: Date,
-        required: true,
+        required: false,
     },
 }, {
   timestamps: true, 
