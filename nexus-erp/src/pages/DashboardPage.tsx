@@ -1,10 +1,10 @@
 import React from "react";
-
+import styles from './DashboardPage.module.scss';
 const DashboardPage: React.FC = () => {
     return (
-    <div>
-        <h2>Dashboard</h2>
-        <p>Bem-vindo ao seu ERP!</p>
+    <div className={styles.container}>
+        <h2 className={styles.title}>Dashboard</h2>
+        <p className={styles.text}>Bem-vindo ao seu ERP!</p>
     </div>
 );
 };

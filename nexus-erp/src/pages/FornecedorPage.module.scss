@@ -1,0 +1,53 @@
+@use '../styles/variables' as vars;
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  width: 100%;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  padding-left: 60rem;
+}
+
+
+.contentWrapper {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: stretch;
+  box-shadow: 0 6px 18px rgba(15, 15, 15, 0.08);
+  border-radius: 10px;
+  background: white;
+  margin: 2rem auto 0;
+  padding: 1.5rem;
+  min-height: 480px;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  color: #000 !important;
+  font-weight: 600;
+}
+
+.list {
+  background: white;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid vars.$border-color;
+  box-shadow: 0 6px 18px rgba(15,15,15,0.08);
+  margin-top: 1rem;
+}
+
+.list h3 { margin-top: 0; }
+
+.item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid vars.$border-color;
+}
+
+.item:last-child { border-bottom: none; }

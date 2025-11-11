@@ -1,0 +1,35 @@
+@use '../styles/variables' as vars;
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  width: 100%;
+  padding: 2rem 1rem; 
+  box-sizing: border-box;
+  padding-left: 60rem;
+}
+
+.contentWrapper {
+  width: 80vw;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: stretch; 
+  box-shadow: 0 6px 18px rgba(15, 15, 15, 0.08);
+  border-radius: 12px;
+  background: white;
+  margin: 2rem auto 0; /* centraliza horizontalmente */
+  padding: 1.5rem;
+  /* Altura mínima opcional para não colapsar quando houver poucos itens */
+  min-height: 400px;
+  transform: scale(0.9); /* reduz o card em 10% */
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  color: black !important;
+}
