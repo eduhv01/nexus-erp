@@ -1,0 +1,37 @@
+@use './variables' as vars; 
+@use "sass:color";
+
+.pageContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  
+  background-color: #111827; 
+  background-image: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.contentWrapper {
+  background: rgba(31, 41, 55, 0.25); 
+  backdrop-filter: blur(12px); 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  
+  border-radius: 12px; 
+  padding: 2.5rem 3rem; 
+  width: 100%;
+  max-width: 800px; 
+  
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); 
+}
+
+.title {
+  text-align: left; 
+  color: #ffffff; 
+  margin-bottom: 2rem;
+  font-size: 1.75rem; 
+  font-weight: 600; 
+  letter-spacing: -0.5px;
+}

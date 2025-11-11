@@ -1,0 +1,33 @@
+@use '../styles/variables' as vars;
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  width: 100%;
+  padding: 2rem 1rem; 
+  box-sizing: border-box;
+  padding-left: 60rem;
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 720px; 
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: stretch; 
+  box-shadow: 0 6px 18px rgba(15, 15, 15, 0.08);
+  border-radius: 10px;
+  background: white;
+  margin: 2rem auto 0; 
+  padding: 1.5rem;
+  min-height: 480px;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  color: black;
+}
