@@ -4,18 +4,18 @@ import { ClientForm } from '../features/clients/ClientForm';
 import type { IClient } from '../features/clients/client.models';
 
 import { NotificacaoToast } from '../components/common/NotificacaoToast'; 
-import { useLocalList } from '../components/common/useLocalList';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addClient, deleteClient } from '../store/slices/clientsSlice';
 
 const ClientsPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const clients = useAppSelector((state) => state.clients.items);
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
-  const { items: clients, add: addClient, removeByKey: removeClientByKey } = useLocalList<
-    Omit<IClient, '_id' | 'createdAt' | 'updatedAt'>
-  >('clients:list', (c) => String(c.clienteID));
 
   const handleSaveClient = async (client: Omit<IClient, '_id' | 'createdAt' | 'updatedAt'>) => {
-    addClient(client);
+    dispatch(addClient(client));
     setToastMessage('Cliente salvo com sucesso!');
     setToastType('success');
     return Promise.resolve();
@@ -37,7 +37,7 @@ const ClientsPage: React.FC = () => {
             <p style={{ opacity: 0.7 }}>Nenhum cliente salvo ainda.</p>
           ) : (
             <div>
-              {clients.map((c) => (
+              {clients.map((c: Omit<IClient, '_id' | 'createdAt' | 'updatedAt'>) => (
                 <div key={c.clienteID} className={styles.savedCard}>
                   <div className={styles.kv}>
                     <span className={styles.kvItem}>
@@ -66,7 +66,7 @@ const ClientsPage: React.FC = () => {
                     </span>
                   </div>
                   <button
-                    onClick={() => removeClientByKey(String(c.clienteID))}
+                    onClick={() => dispatch(deleteClient(c.clienteID))}
                     className={styles.dangerButton}
                     aria-label={`Excluir cliente ${c.nome}`}
                   >

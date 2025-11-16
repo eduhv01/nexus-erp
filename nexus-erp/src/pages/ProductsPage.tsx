@@ -3,18 +3,19 @@ import layoutStyles from '../styles/FormPageLayout.module.scss';
 
 import { ProductForm } from '../features/products/ProductForm';
 import type { IProduct } from '../features/products/product.models';
-import { useLocalList } from '../components/common/useLocalList';
 import { NotificacaoToast } from '../components/common/NotificacaoToast';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addProduct, deleteProduct } from '../store/slices/productsSlice';
 
 const ProductsPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.products.items);
+
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
-  const { items: products, add: addProduct, removeByKey: removeProduct } = useLocalList<
-    Omit<IProduct, '_id' | 'createdAt' | 'updatedAt'>
-  >('products:list', (p) => String(p.produtoID));
 
   const handleSaveProduct = (product: Omit<IProduct, '_id' | 'createdAt' | 'updatedAt'>) => {
-    addProduct(product);
+    dispatch(addProduct(product));
     setToastMessage('Produto salvo com sucesso!');
     setToastType('success');
     return Promise.resolve();
@@ -33,7 +34,7 @@ const ProductsPage: React.FC = () => {
             <p style={{ opacity: 0.7 }}>Nenhum produto salvo ainda.</p>
           ) : (
             <div>
-              {products.map((p) => (
+              {products.map((p: Omit<IProduct, '_id' | 'createdAt' | 'updatedAt'>) => (
                 <div key={p.produtoID} className={layoutStyles.savedCard}>
                   <div className={layoutStyles.kv}>
                     <span className={layoutStyles.kvItem}>
@@ -54,7 +55,7 @@ const ProductsPage: React.FC = () => {
                     </span>
                   </div>
                   <button
-                    onClick={() => removeProduct(String(p.produtoID))}
+                    onClick={() => dispatch(deleteProduct(p.produtoID))}
                     className={layoutStyles.dangerButton}
                     aria-label={`Excluir produto ${p.nome}`}
                   >

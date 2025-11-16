@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import layoutStyles from '../styles/FormPageLayout.module.scss'; 
 import { FornecedorForm } from '../features/fornecedor/FornecedorForm';
 import type { IFornecedor } from '../features/fornecedor/fornecedor.models';
-import { useLocalList } from '../components/common/useLocalList';
 import { NotificacaoToast } from '../components/common/NotificacaoToast';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addFornecedor, deleteFornecedor } from '../store/slices/fornecedoresSlice';
 
 const FornecedorPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const fornecedores = useAppSelector((state) => state.fornecedores.items);
+
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
-  const { items: fornecedores, add: addFornecedor, removeByKey: removeFornecedor } = useLocalList<
-    Omit<IFornecedor, '_id' | 'createdAt' | 'updatedAt'>
-  >('fornecedores:list', (f) => String(f.fornecedorID));
 
   const handleSaveFornecedor = (fornecedor: Omit<IFornecedor, '_id' | 'createdAt' | 'updatedAt'>) => {
-    addFornecedor(fornecedor);
+    dispatch(addFornecedor(fornecedor));
     setToastMessage('Fornecedor salvo com sucesso!');
     setToastType('success');
     return Promise.resolve();
@@ -32,7 +33,7 @@ const FornecedorPage: React.FC = () => {
             <p style={{ opacity: 0.7 }}>Nenhum fornecedor salvo ainda.</p>
           ) : (
             <div>
-              {fornecedores.map((f) => (
+              {fornecedores.map((f: Omit<IFornecedor, '_id' | 'createdAt' | 'updatedAt'>) => (
                 <div key={f.fornecedorID} className={layoutStyles.savedCard}>
                   <div className={layoutStyles.kv}>
                     <span className={layoutStyles.kvItem}>
@@ -65,7 +66,7 @@ const FornecedorPage: React.FC = () => {
                     </span>
                   </div>
                   <button
-                    onClick={() => removeFornecedor(String(f.fornecedorID))}
+                    onClick={() => dispatch(deleteFornecedor(f.fornecedorID))}
                     className={layoutStyles.dangerButton}
                     aria-label={`Excluir fornecedor ${f.nome}`}
                   >

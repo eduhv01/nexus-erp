@@ -3,18 +3,19 @@ import layoutStyles from '../styles/formPageLayout.module.scss';
 
 import { EmployeeForm } from '../features/employees/EmployeeForm';
 import type { IEmployee } from '../features/employees/employees.models';
-import { useLocalList } from '../components/common/useLocalList';
 import { NotificacaoToast } from '../components/common/NotificacaoToast';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addEmployee, deleteEmployee } from '../store/slices/employeesSlice';
 
 const EmployeesPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const employees = useAppSelector((state) => state.employees.items);
+
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
-  const { items: employees, add: addEmployee, removeByKey: removeEmployee } = useLocalList<
-    Omit<IEmployee, '_id' | 'createdAt' | 'updatedAt'>
-  >('employees:list', (e) => String(e.funcionarioID));
 
   const handleSaveEmployee = (employee: Omit<IEmployee, '_id' | 'createdAt' | 'updatedAt'>) => {
-    addEmployee(employee);
+    dispatch(addEmployee(employee));
     setToastMessage('Funcionário salvo com sucesso!');
     setToastType('success');
     return Promise.resolve();
@@ -33,7 +34,7 @@ const EmployeesPage: React.FC = () => {
             <p style={{ opacity: 0.7 }}>Nenhum funcionário salvo ainda.</p>
           ) : (
             <div>
-              {employees.map((e) => (
+              {employees.map((e: Omit<IEmployee, '_id' | 'createdAt' | 'updatedAt'>) => (
                 <div key={e.funcionarioID} className={layoutStyles.savedCard}>
                   <div className={layoutStyles.kv}>
                     <span className={layoutStyles.kvItem}>
@@ -58,7 +59,7 @@ const EmployeesPage: React.FC = () => {
                     </span>
                   </div>
                   <button
-                    onClick={() => removeEmployee(String(e.funcionarioID))}
+                    onClick={() => dispatch(deleteEmployee(e.funcionarioID))}
                     className={layoutStyles.dangerButton}
                     aria-label={`Excluir funcionário ${e.nome}`}
                   >
