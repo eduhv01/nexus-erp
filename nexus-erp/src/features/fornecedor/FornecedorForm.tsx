@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+<<<<<<< Updated upstream
 import type { Fornecedor } from './fornecedor.models';
 import styles from './FornecedorForm.module.scss';
+=======
+import type { IFornecedor } from './fornecedor.models';
+import styles from './FornecedorForm.module.scss'; 
+import { FiHash, FiFileText, FiPhone, FiMapPin, FiTruck, FiGlobe } from 'react-icons/fi';
+>>>>>>> Stashed changes
 
 interface FornecedorFormProps {
   onSubmit: (fornecedor: Fornecedor) => void;
