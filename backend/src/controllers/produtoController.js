@@ -1,14 +1,19 @@
 const Produto = require('../models/produto.js'); 
 const asyncHandler = require('express-async-handler'); 
 
+// @desc    Criar um novo produto
+// @route   POST /api/produtos
+// @access  Private 
 const createProduct = asyncHandler(async (req, res) => {
     const { nome, produtoID, preco, estoque } = req.body; 
 
+    // Validação de Campos Obrigatórios (fixa o bug anterior)
     if (!nome || !produtoID || preco === undefined || estoque === undefined) { 
         res.status(400); 
         throw new Error('Nome, ID, preço e estoque são obrigatórios.');
     }
 
+    // Validação de Unicidade
     const productExists = await Produto.findOne({ $or: [{ nome }, { produtoID }] });
     if (productExists) {
         res.status(400);
@@ -26,11 +31,17 @@ const createProduct = asyncHandler(async (req, res) => {
     res.status(201).json(createdProduct);
 });
 
+// @desc    Obter todos os produtos
+// @route   GET /api/produtos
+// @access  Private 
 const getProducts = asyncHandler(async (req, res) => {
     const products = await Produto.find({});
     res.status(200).json(products);
 });
 
+// @desc    Obter um único produto por ID
+// @route   GET /api/produtos/:id
+// @access  Private
 const getProductById = asyncHandler(async (req, res) => { 
     const product = await Produto.findById(req.params.id);
 
@@ -42,6 +53,9 @@ const getProductById = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Atualizar um produto
+// @route   PUT /api/produtos/:id
+// @access  Private
 const updateProduct = asyncHandler(async (req, res) => {
     const { nome, produtoID, preco, estoque } = req.body;
 
@@ -61,6 +75,9 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Excluir um produto
+// @route   DELETE /api/produtos/:id
+// @access  Private
 const deleteProduct = asyncHandler(async (req, res) => { 
     const product = await Produto.findById(req.params.id);
 
@@ -74,8 +91,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-    createProduct, 
-    getProducts,
+    createProduct,
+    getProducts,  
     getProductById,
     updateProduct,
     deleteProduct
