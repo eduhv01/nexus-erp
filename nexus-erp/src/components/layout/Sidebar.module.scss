@@ -76,6 +76,18 @@
   padding-top: 1rem;
 }
 
+.userInfo {
+  margin-bottom: 1rem;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: vars.$sidebar-text;
+    font-weight: 500;
+  }
+}
+
 .logoutButton {
   color: vars.$sidebar-text;
   text-decoration: none;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { IFornecedor } from './fornecedor.models';
 import styles from './FornecedorForm.module.scss'; 
-import { FiUser, FiHash, FiFileText, FiPhone, FiMapPin, FiTruck, FiGlobe } from 'react-icons/fi';
+import { FiHash, FiFileText, FiPhone, FiMapPin, FiTruck, FiGlobe } from 'react-icons/fi';
 
 interface FornecedorFormProps {
   onSubmit: (fornecedor: Omit<IFornecedor, '_id' | 'createdAt' | 'updatedAt'>) => Promise<void>;

@@ -1,14 +1,14 @@
 import React from "react";
-import { Outlet } from "react-router-dom"; 
-import Sidebar from "./Sidebar"; 
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 import styles from "./MainLayout.module.scss";
 
 const MainLayout: React.FC = () => {
     return (
         <div className={styles.layout}>
-            <Sidebar /> {}
+            <Sidebar />
             <main className={styles.content}>
-                <Outlet /> {}
+                <Outlet />
             </main>
         </div>
     );

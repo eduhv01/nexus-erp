@@ -16,9 +16,7 @@ const protegerRota = async (req, res, next) => {
       console.error("Erro na verificação do token:", error);
       res.status(401).json({ mensagem: 'Não autorizado, token inválido.' });
     }
-  }
-
-  if (!token) {
+  } else {
     res.status(401).json({ mensagem: 'Não autorizado, token não encontrado.' });
   }
 };

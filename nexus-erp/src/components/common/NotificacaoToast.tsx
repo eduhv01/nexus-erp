@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import styles from './NotificacaoToast.module.scss'; 
 import { FiCheckCircle, FiAlertCircle, FiX } from 'react-icons/fi';
 
-interface NotificacaoToastProps { 
+interface NotificacaoToastProps {
   message: string;
-  type?: 'success' | 'error';
+  type?: 'success' | 'error' | 'info' | 'warning';
   duration?: number;
   onClose: () => void;
 }

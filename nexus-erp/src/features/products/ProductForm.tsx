@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { IProduct } from './product.models';
-import styles from './ProductForm.module.scss'; 
+import styles from './ProductForm.module.scss';
 import { FiPackage, FiDollarSign, FiHash, FiClipboard } from 'react-icons/fi';
 
 interface ProductFormProps {
@@ -8,7 +8,7 @@ interface ProductFormProps {
 }
 
 export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
- 
+
   const [nome, setNome] = useState('');
   const [produtoID, setProdutoID] = useState(0);
   const [preco, setPreco] = useState(0);
@@ -17,11 +17,29 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setIsLoading(true);
     setError(null);
     try {
-      await onSubmit({ nome, produtoID, preco, estoque });
+      const user = localStorage.getItem('user');
+      const token = user ? JSON.parse(user).token : null;
+      if (!token) {
+        throw new Error('Usuário não autenticado');
+      }
+      const response = await fetch('/api/produtos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ nome, produtoID, preco, estoque }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erro ao salvar produto');
+      }
+      const savedProduct = await response.json();
+      await onSubmit(savedProduct);
       setNome('');
       setProdutoID(0);
       setPreco(0);

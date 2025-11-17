@@ -1,12 +1,23 @@
+// nexus-erp/backend/src/routes/produtoRoutes.js
 const express = require('express');
 const router = express.Router();
+const {
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
+} = require('../controllers/produtoController'); // <--- AQUI ESTÁ OK, SEM .js, pois é um módulo
+const { protegerRota } = require('../middleware/autenticacaoMiddleware');
 
-const { criarProduto, obterProdutos } = require('../controllers/produtoController.js');
-
-const { protegerRota } = require('../middleware/autenticacaoMiddleware.js'); 
-
+// Rotas protegidas (exigem que o usuário esteja logado)
 router.route('/')
-  .post(protegerRota, criarProduto) 
-  .get(protegerRota, obterProdutos);  
+    .post(protegerRota, createProduct)
+    .get(protegerRota, getProducts);
+
+router.route('/:id')
+    .get(protegerRota, getProductById)
+    .put(protegerRota, updateProduct)
+    .delete(protegerRota, deleteProduct);
 
 module.exports = router;

@@ -1,4 +1,3 @@
-
 export interface IEmployee {
   _id: string; 
   nome: string;

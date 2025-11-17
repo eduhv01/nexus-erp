@@ -1,12 +1,12 @@
-@use '../../styles/variables' as vars; 
+@use '../../styles/variables' as vars;
 
 .layout {
     display: flex;
 }
 
 .content {
-    margin-left: vars.$sidebar-width; 
+    margin-left: vars.$sidebar-width;
 
-    width: 100%; 
+    width: 100%;
     padding: 2rem;
 }

@@ -3,7 +3,8 @@ import styles from './AuthForm.module.scss';
 import { FiMail, FiLock } from 'react-icons/fi';
 
 interface LoginFormProps {
-  onSubmit: (data: any) => Promise<void>; 
+  onSubmit: (data: any) => Promise<void>;
+  isLoading?: boolean;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
