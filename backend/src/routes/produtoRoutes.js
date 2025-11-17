@@ -8,15 +8,15 @@ const {
     deleteProduct
 } = require('../controllers/produtoController');
 
-const { protegerRota } = require('../middleware/autenticacaoMiddleware');
+const { protegerRota } = require('../middleware/autenticacaoMiddleware'); 
 
 router.route('/')
     .post(protegerRota, createProduct) 
-    .get(protegerRota, getProducts);   
+    .get(protegerRota, getProducts); 
 
 router.route('/:id')
     .get(protegerRota, getProductById)   
-    .put(protegerRota, updateProduct)    
+    .put(protegerRota, updateProduct)   
     .delete(protegerRota, deleteProduct); 
 
-module.exports = router;
+module.exports = router; 
