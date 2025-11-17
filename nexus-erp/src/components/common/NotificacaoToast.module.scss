@@ -1,0 +1,67 @@
+@use '../../styles/variables' as vars;
+@use "sass:color";
+
+.toast {
+  position: fixed; 
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: vars.$border-radius;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.success {
+  background-color: vars.$success-color;
+  border: 1px solid color.adjust(vars.$success-color, $lightness: -10%);
+}
+.error {
+  background-color: vars.$danger-color;
+  border: 1px solid color.adjust(vars.$danger-color, $lightness: -10%);
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.message {
+  flex-grow: 1; 
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

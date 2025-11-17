@@ -1,19 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { 
-  criarFornecedor, 
-  obterFornecedores, 
-  obterFornecedorPorId, 
-  atualizarFornecedor, 
-  deletarFornecedor 
-} = require('../controllers/fornecedorController.js');
+const { criarFornecedor, obterFornecedores, obterFornecedorPorId, atualizarFornecedor, deletarFornecedor } = require('../controllers/fornecedorController.js');
 
 const { protegerRota } = require('../middleware/autenticacaoMiddleware.js');
 
 router.route('/')
-  .post(protegerRota, criarFornecedor) 
-  .get(protegerRota, obterFornecedores);  
+  .post(protegerRota, criarFornecedor)
+  .get(protegerRota, obterFornecedores);
 
 router.route('/:id')
   .get(protegerRota, obterFornecedorPorId)

@@ -1,27 +1,29 @@
-const Funcionario = require('../models/funcionario.js'); 
+const Funcionario = require('../models/funcionario.js');
 
 const criarFuncionario = async (req, res) => {
   try {
-    const { nome, funcionarioID, email, cargo, contato } = req.body;
+    const { nome, funcionarioID, cpf, email, contato, dataAdmissao, dataNascimento } = req.body;
 
-    if (!nome || !funcionarioID || !email || !cargo) {
-      return res.status(400).json({ mensagem: 'Campos nome, funcionarioID, email e cargo são obrigatórios.' });
+    if (!nome || !funcionarioID || !cpf || !email || !contato || !dataAdmissao || !dataNascimento) {
+      return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios.' });
     }
 
     const funcionario = new Funcionario({
       nome,
       funcionarioID,
+      cpf,
       email,
-      cargo,
       contato,
+      dataAdmissao,
+      dataNascimento,
     });
 
     const funcionarioCriado = await funcionario.save();
     res.status(201).json(funcionarioCriado);
 
   } catch (error) {
-    if (error.code === 11000) { 
-        return res.status(400).json({ mensagem: 'Erro: FuncionarioID ou Email já cadastrado.' });
+    if (error.code === 11000) {
+      return res.status(400).json({ mensagem: 'Erro: funcionarioID, CPF ou email já cadastrado.' });
     }
     console.error("Erro ao criar funcionário:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
@@ -41,14 +43,13 @@ const obterFuncionarios = async (req, res) => {
 const obterFuncionarioPorId = async (req, res) => {
   try {
     const funcionario = await Funcionario.findById(req.params.id);
-
     if (funcionario) {
       res.json(funcionario);
     } else {
       res.status(404).json({ mensagem: 'Funcionário não encontrado.' });
     }
   } catch (error) {
-    console.error("Erro ao obter funcionário por ID:", error);
+    console.error("Erro ao obter funcionário:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
   }
 };
@@ -56,23 +57,21 @@ const obterFuncionarioPorId = async (req, res) => {
 const atualizarFuncionario = async (req, res) => {
   try {
     const funcionario = await Funcionario.findById(req.params.id);
-
     if (funcionario) {
       funcionario.nome = req.body.nome || funcionario.nome;
       funcionario.funcionarioID = req.body.funcionarioID || funcionario.funcionarioID;
+      funcionario.cpf = req.body.cpf || funcionario.cpf;
       funcionario.email = req.body.email || funcionario.email;
-      funcionario.cargo = req.body.cargo || funcionario.cargo;
       funcionario.contato = req.body.contato || funcionario.contato;
+      funcionario.dataAdmissao = req.body.dataAdmissao || funcionario.dataAdmissao;
+      funcionario.dataNascimento = req.body.dataNascimento || funcionario.dataNascimento;
 
       const funcionarioAtualizado = await funcionario.save();
       res.json(funcionarioAtualizado);
     } else {
-      res.status(404).json({ mensagem: 'Funcionário não encontrado para atualização.' });
+      res.status(404).json({ mensagem: 'Funcionário não encontrado.' });
     }
   } catch (error) {
-     if (error.code === 11000) { 
-        return res.status(400).json({ mensagem: 'Erro: FuncionarioID ou Email já cadastrado para outro funcionário.' });
-    }
     console.error("Erro ao atualizar funcionário:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
   }
@@ -81,12 +80,11 @@ const atualizarFuncionario = async (req, res) => {
 const deletarFuncionario = async (req, res) => {
   try {
     const funcionario = await Funcionario.findById(req.params.id);
-
     if (funcionario) {
-      await Funcionario.deleteOne({ _id: req.params.id });
-      res.json({ mensagem: 'Funcionário excluído com sucesso.' });
+      await funcionario.remove();
+      res.json({ mensagem: 'Funcionário removido.' });
     } else {
-      res.status(404).json({ mensagem: 'Funcionário não encontrado para exclusão.' });
+      res.status(404).json({ mensagem: 'Funcionário não encontrado.' });
     }
   } catch (error) {
     console.error("Erro ao deletar funcionário:", error);
@@ -94,10 +92,4 @@ const deletarFuncionario = async (req, res) => {
   }
 };
 
-module.exports = { 
-  criarFuncionario, 
-  obterFuncionarios, 
-  obterFuncionarioPorId, 
-  atualizarFuncionario, 
-  deletarFuncionario 
-};
+module.exports = { criarFuncionario, obterFuncionarios, obterFuncionarioPorId, atualizarFuncionario, deletarFuncionario };

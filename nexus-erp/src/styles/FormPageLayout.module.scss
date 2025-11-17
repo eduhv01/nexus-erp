@@ -1,0 +1,95 @@
+@use './variables' as vars; 
+@use "sass:color";
+
+.pageContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  
+  background-color: #111827; 
+  background-image: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.contentWrapper {
+  background: rgba(31, 41, 55, 0.25); 
+  backdrop-filter: blur(12px); 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  
+  border-radius: 12px; 
+  padding: 2.5rem 3rem; 
+  width: 100%;
+  max-width: 800px; 
+  
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); 
+}
+
+.title {
+  text-align: left; 
+  color: #ffffff; 
+  margin-bottom: 2rem;
+  font-size: 1.75rem; 
+  font-weight: 600; 
+  letter-spacing: -0.5px;
+}
+
+.sectionTitle {
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.75rem 0;
+}
+
+.savedList {
+  margin-top: 24px;
+  color: #ffffff; // garante contraste no tema escuro
+}
+
+.savedCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.kv {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.kvItem {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.kvLabel {
+  opacity: 0.75;
+  margin-right: 4px;
+}
+
+.kvValue {
+  font-weight: 600;
+}
+
+.dangerButton {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dangerButton:hover {
+  filter: brightness(0.95);
+}

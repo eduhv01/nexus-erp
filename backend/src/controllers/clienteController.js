@@ -2,27 +2,31 @@ const Cliente = require('../models/cliente.js');
 
 const criarCliente = async (req, res) => {
   try {
-    const { nome, clienteID, contato, endereco, email, datNascimento } = req.body;
+    const { nome, clienteID, cpf, contato, logradouro, numero, uf, cidade, email, dataNascimento } = req.body;
 
-if (!nome || !clienteID || !email || !contato) {
-      return res.status(400).json({ mensagem: 'Campos nome, clienteID, email e contato são obrigatórios.' });
+    if (!nome || !clienteID || !cpf || !contato || !logradouro || !numero || !uf || !cidade || !email || !dataNascimento) {
+      return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios.' });
     }
 
     const cliente = new Cliente({
       nome,
       clienteID,
+      cpf,
       contato,
-      endereco,
+      logradouro,
+      numero,
+      uf,
+      cidade,
       email,
-      datNascimento,
+      dataNascimento,
     });
 
     const clienteCriado = await cliente.save();
     res.status(201).json(clienteCriado);
 
   } catch (error) {
-    if (error.code === 11000) { // Erro de duplicidade (para clienteID ou email)
-        return res.status(400).json({ mensagem: 'Erro: ClienteID ou Email já cadastrado.' });
+    if (error.code === 11000) {
+      return res.status(400).json({ mensagem: 'Erro: clienteID, CPF ou email já cadastrado.' });
     }
     console.error("Erro ao criar cliente:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
@@ -42,14 +46,13 @@ const obterClientes = async (req, res) => {
 const obterClientePorId = async (req, res) => {
   try {
     const cliente = await Cliente.findById(req.params.id);
-
     if (cliente) {
       res.json(cliente);
     } else {
       res.status(404).json({ mensagem: 'Cliente não encontrado.' });
     }
   } catch (error) {
-    console.error("Erro ao obter cliente por ID:", error);
+    console.error("Erro ao obter cliente:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
   }
 };
@@ -57,25 +60,25 @@ const obterClientePorId = async (req, res) => {
 const atualizarCliente = async (req, res) => {
   try {
     const cliente = await Cliente.findById(req.params.id);
-
     if (cliente) {
       cliente.nome = req.body.nome || cliente.nome;
       cliente.clienteID = req.body.clienteID || cliente.clienteID;
+      cliente.cpf = req.body.cpf || cliente.cpf;
       cliente.contato = req.body.contato || cliente.contato;
-      cliente.endereco = req.body.endereco || cliente.endereco;
+      cliente.logradouro = req.body.logradouro || cliente.logradouro;
+      cliente.numero = req.body.numero || cliente.numero;
+      cliente.uf = req.body.uf || cliente.uf;
+      cliente.cidade = req.body.cidade || cliente.cidade;
       cliente.email = req.body.email || cliente.email;
-      cliente.datNascimento = req.body.datNascimento || cliente.datNascimento;
+      cliente.dataNascimento = req.body.dataNascimento || cliente.dataNascimento;
 
       const clienteAtualizado = await cliente.save();
       res.json(clienteAtualizado);
     } else {
-      res.status(404).json({ mensagem: 'Cliente não encontrado para atualização.' });
+      res.status(404).json({ mensagem: 'Cliente não encontrado.' });
     }
   } catch (error) {
-     if (error.code === 11000) { 
-        return res.status(400).json({ mensagem: 'Erro: ClienteID ou Email já cadastrado para outro cliente.' });
-    }
-    console.error("Erro ao atualizar o cliente:", error);
+    console.error("Erro ao atualizar cliente:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
   }
 };
@@ -83,22 +86,16 @@ const atualizarCliente = async (req, res) => {
 const deletarCliente = async (req, res) => {
   try {
     const cliente = await Cliente.findById(req.params.id);
-
     if (cliente) {
-      await Cliente.deleteOne({ _id: req.params.id });
-      res.json({ mensagem: 'Cliente excluído.' });
+      await cliente.remove();
+      res.json({ mensagem: 'Cliente removido.' });
     } else {
-      res.status(404).json({ mensagem: 'Cliente não encontrado para exclusão.' });
+      res.status(404).json({ mensagem: 'Cliente não encontrado.' });
     }
   } catch (error) {
-    console.error("Erro ao excluir o cliente:", error);
+    console.error("Erro ao deletar cliente:", error);
     res.status(500).json({ mensagem: `Erro interno do servidor: ${error.message}` });
   }
 };
-module.exports = { 
-  criarCliente, 
-  obterClientes, 
-  obterClientePorId, 
-  atualizarCliente, 
-  deletarCliente 
-};
+
+module.exports = { criarCliente, obterClientes, obterClientePorId, atualizarCliente, deletarCliente };

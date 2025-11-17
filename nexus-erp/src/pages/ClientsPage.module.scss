@@ -1,0 +1,28 @@
+@use '../styles/variables' as vars; 
+
+.pageContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #242424; 
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start; 
+}
+
+.contentWrapper {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 800px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 1px solid vars.$border-color;
+}
+
+.title {
+  text-align: center; 
+  color: vars.$text-color;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+}

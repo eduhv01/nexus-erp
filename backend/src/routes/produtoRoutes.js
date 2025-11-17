@@ -1,19 +1,22 @@
 const express = require('express');
 const router = express.Router();
-
-const { 
-  criarProduto, 
-  obterProdutos, 
-  obterProdutoPorId, 
-  atualizarProduto,  
-  deletarProduto    
-} = require('../controllers/produtoController.js');
-
-const { protegerRota } = require('../middleware/autenticacaoMiddleware.js');
+const {
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
+} = require('../controllers/produtoController'); 
+const { protegerRota } = require('../middleware/autenticacaoMiddleware');
 
 router.route('/')
-  .post(protegerRota, criarProduto) 
-  .get(protegerRota, obterProdutos);  
+    .post(protegerRota, createProduct)
+    .get(protegerRota, getProducts);
+
+router.route('/:id')
+    .get(protegerRota, getProductById)
+    .put(protegerRota, updateProduct)
+    .delete(protegerRota, deleteProduct);
 
 router.route('/:id')
   .get(protegerRota, obterProdutoPorId)  

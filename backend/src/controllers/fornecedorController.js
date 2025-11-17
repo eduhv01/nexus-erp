@@ -41,7 +41,6 @@ const obterFornecedores = async (req, res) => {
 const obterFornecedorPorId = async (req, res) => {
   try {
     const fornecedor = await Fornecedor.findById(req.params.id);
-
     if (fornecedor) {
       res.json(fornecedor);
     } else {
@@ -56,7 +55,6 @@ const obterFornecedorPorId = async (req, res) => {
 const atualizarFornecedor = async (req, res) => {
   try {
     const fornecedor = await Fornecedor.findById(req.params.id);
-
     if (fornecedor) {
       fornecedor.nome = req.body.nome || fornecedor.nome;
       fornecedor.fornecedorID = req.body.fornecedorID || fornecedor.fornecedorID;

@@ -1,0 +1,117 @@
+@use '../../styles/variables' as vars; 
+
+.sidebar {
+  width: vars.$sidebar-width; 
+  height: 100vh;
+  background-color: vars.$sidebar-background;
+  color: vars.$sidebar-text;
+  padding: 1.5rem 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 1px solid lighten(vars.$sidebar-background, 10%);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  color: vars.$sidebar-text-hover;
+  font-size: 1.25rem;
+  padding-left: 0.5rem;
+  text-decoration: none; 
+  
+  h3 {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; 
+}
+
+.sidebar li {
+  margin-bottom: 0; 
+}
+
+.sidebar a {
+  color: vars.$sidebar-text;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  display: flex; 
+  align-items: center;
+  gap: 0.75rem; 
+  border-radius: vars.$border-radius;
+  transition: all 0.2s ease;
+  font-weight: 500;
+
+  &:hover {
+    background-color: vars.$sidebar-hover-background;
+    color: vars.$sidebar-text-hover;
+  }
+}
+
+.active {
+  background-color: vars.$primary-color;
+  color: vars.$sidebar-text-hover;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+
+  &:hover {
+    background-color: vars.$primary-color;
+    color: vars.$sidebar-text-hover;
+  }
+}
+
+.sidebarFooter {
+  border-top: 1px solid lighten(vars.$sidebar-background, 10%);
+  padding-top: 1rem;
+}
+
+.userInfo {
+  margin-bottom: 1rem;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: vars.$sidebar-text;
+    font-weight: 500;
+  }
+}
+
+.logoutButton {
+  color: vars.$sidebar-text;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  display: flex; 
+  align-items: center;
+  gap: 0.75rem; 
+  border-radius: vars.$border-radius;
+  transition: all 0.2s ease;
+  font-weight: 500;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%; 
+  font-size: 1rem; 
+
+  svg {
+    font-size: 1.1rem;
+    stroke-width: 2px;
+  }
+
+  &:hover {
+    background-color: vars.$sidebar-hover-background;
+    color: vars.$danger-color; 
+  }
+}

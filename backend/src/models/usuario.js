@@ -11,9 +11,13 @@ const usuarioSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    senha: { 
+    senha: {
         type: String,
         required: true,
+    },
+    token: {
+        type: String,
+        default: null,
     },
 }, {
     timestamps: true,
