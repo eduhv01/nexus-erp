@@ -2,9 +2,9 @@ const Funcionario = require('../models/funcionario.js');
 
 const criarFuncionario = async (req, res) => {
   try {
-    const { nome, funcionarioID, cpf, email, contato, dataAdmissao, dataNascimento } = req.body;
+    const { nome, funcionarioID, cpf, email, contato} = req.body;
 
-    if (!nome || !funcionarioID || !cpf || !email || !contato || !dataAdmissao || !dataNascimento) {
+    if (!nome || !funcionarioID || !cpf || !email || !contato) {
       return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios.' });
     }
 
@@ -14,8 +14,6 @@ const criarFuncionario = async (req, res) => {
       cpf,
       email,
       contato,
-      dataAdmissao,
-      dataNascimento,
     });
 
     const funcionarioCriado = await funcionario.save();
@@ -63,8 +61,6 @@ const atualizarFuncionario = async (req, res) => {
       funcionario.cpf = req.body.cpf || funcionario.cpf;
       funcionario.email = req.body.email || funcionario.email;
       funcionario.contato = req.body.contato || funcionario.contato;
-      funcionario.dataAdmissao = req.body.dataAdmissao || funcionario.dataAdmissao;
-      funcionario.dataNascimento = req.body.dataNascimento || funcionario.dataNascimento;
 
       const funcionarioAtualizado = await funcionario.save();
       res.json(funcionarioAtualizado);
